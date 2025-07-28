@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Building2, Grid3X3, Upload, Calendar, Globe, MapPin, Users, TrendingUp, HelpCircle } from 'lucide-react';
+import { Building2, Grid3X3, Upload, Calendar, Globe, MapPin, Users, TrendingUp, HelpCircle, X, AlertCircle } from 'lucide-react';
 
 interface CompanyData {
   companyName: string;
@@ -13,6 +13,10 @@ interface CompanyData {
   fiscalYear: string;
   website: string;
   corporateOffice: string;
+}
+
+interface ValidationErrors {
+  [key: string]: string;
 }
 
 const CompanyProfileForm: React.FC = () => {
@@ -31,6 +35,8 @@ const CompanyProfileForm: React.FC = () => {
   });
 
   const [activeTab, setActiveTab] = useState<'profile' | 'dashboard'>('profile');
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
   const handleInputChange = (field: keyof CompanyData, value: string) => {
     setFormData(prev => ({
@@ -39,9 +45,90 @@ const CompanyProfileForm: React.FC = () => {
     }));
   };
 
+  const validateForm = (): ValidationErrors => {
+    const errors: ValidationErrors = {};
+    
+    // Required fields validation
+    if (!formData.companyName.trim()) {
+      errors.companyName = 'Company Name is required';
+    }
+    
+    if (!formData.registrationNumber.trim()) {
+      errors.registrationNumber = 'Company Registration Number is required';
+    }
+    
+    if (!formData.country.trim()) {
+      errors.country = 'Country of Registration is required';
+    }
+    
+    if (!formData.yearOfIncorporation.trim()) {
+      errors.yearOfIncorporation = 'Year of Incorporation is required';
+    }
+    
+    if (!formData.nicIsicCode.trim()) {
+      errors.nicIsicCode = 'NIC/ISIC Code is required';
+    }
+    
+    if (!formData.numberOfEmployees.trim()) {
+      errors.numberOfEmployees = 'Number of employees is required';
+    }
+    
+    if (!formData.fiscalYear.trim()) {
+      errors.fiscalYear = 'Fiscal Year is required';
+    }
+    
+    if (!formData.corporateOffice.trim()) {
+      errors.corporateOffice = 'Corporate Office is required';
+    }
+    
+    // Optional validation for email format if website is provided
+    if (formData.website && !formData.website.includes('.')) {
+      errors.website = 'Please enter a valid website URL';
+    }
+    
+    return errors;
+  };
+
   const handleUpdateChanges = () => {
-    console.log('Updating changes:', formData);
-    // Handle form submission here
+    // Validate form
+    const errors = validateForm();
+    
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      setShowErrorModal(true);
+      return;
+    }
+    
+    // If validation passes, create object with key-value pairs
+    const companyProfileObject = {
+      "Company Name": formData.companyName,
+      "Registration Number": formData.registrationNumber,
+      "Country": formData.country,
+      "Year of Incorporation": formData.yearOfIncorporation,
+      "NIC/ISIC Code": formData.nicIsicCode,
+      "Number of Employees": formData.numberOfEmployees,
+      "Listed Year": formData.listedYear || "Not provided",
+      "Stock Exchange": formData.stockExchange || "Not provided",
+      "Fiscal Year": formData.fiscalYear,
+      "Website": formData.website || "Not provided",
+      "Corporate Office": formData.corporateOffice
+    };
+    
+    // Print the object
+    console.log("Company Profile Object:", companyProfileObject);
+    
+    // Pretty print in console
+    console.table(companyProfileObject);
+    
+    // Show success message
+    alert(`✅ Company Profile Successfully Created!\n\nCheck console for the complete object data.`);
+    
+    // TODO: Send to API
+    // fetch('/api/company-profile', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(companyProfileObject)
+    // });
   };
 
   return (
@@ -276,6 +363,50 @@ const CompanyProfileForm: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Error Modal */}
+        {showErrorModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4 max-h-96 overflow-y-auto">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="text-red-500" size={24} />
+                  <h3 className="text-lg font-semibold text-gray-900">Validation Errors</h3>
+                </div>
+                <button
+                  onClick={() => setShowErrorModal(false)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-gray-600 mb-4">Please fix the following errors:</p>
+                {Object.entries(validationErrors).map(([field, error]) => (
+                  <div key={field} className="flex items-start gap-2 p-3 bg-red-50 rounded-lg border border-red-200">
+                    <AlertCircle className="text-red-500 mt-0.5 flex-shrink-0" size={16} />
+                    <div>
+                      <p className="font-medium text-red-800 capitalize">
+                        {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                      </p>
+                      <p className="text-red-600 text-sm">{error}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="flex justify-end mt-6">
+                <button
+                  onClick={() => setShowErrorModal(false)}
+                  className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
