@@ -1,69 +1,142 @@
-# React + TypeScript + Vite
+# 🌿 Climatrixs – Carbon Tokenization Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project provides a React + TypeScript + Vite frontend setup for a carbon credit platform. It features company login, profile input, and emission tracking using a modular, scalable structure and TailwindCSS styling.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Stack
 
-## Expanding the ESLint configuration
+- **React 18**
+- **TypeScript**
+- **Vite**
+- **Tailwind CSS**
+- **React Router**
+- **ESLint + Prettier**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
+## 📁 Directory Structure
+
+```
+carbon-tokenization-frontend/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   │   ├── LoginPage.tsx
+│   │   └── CompanyProfile.tsx
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── tailwind.config.js
+├── tsconfig.json
+├── vite.config.ts
+├── package.json
+└── README.md
+```
+
+---
+
+## 🔧 Setup & Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/harshvardhan2709/carbon-tokenization-frontend.git
+cd carbon-tokenization-frontend
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
+```
+
+App runs at: [http://localhost:5173](http://localhost:5173)
+
+---
+
+## ✨ Pages Implemented
+
+### 🔐 Login Page (`/`)
+
+- Simple login interface
+- Redirects to profile page on login success
+- Uses `useNavigate` from `react-router-dom`
+
+### 🏢 Company Profile (`/company-profile`)
+
+- Accepts user/company details
+- Inputs for:
+  - Industry Type
+  - Energy Consumption (Electricity, Diesel, Petrol)
+  - Scope 1, 2, and 3 emissions
+  - Waste generation
+
+---
+
+## 🎨 Styling: Tailwind CSS
+
+Tailwind utility classes are used throughout components.  
+Global styles can be updated in `src/index.css`.
+
+---
+
+## 🧪 ESLint Setup (Recommended for Production)
+
+To enable strict type-aware linting:
+
+```ts
+// eslint.config.js
 export default tseslint.config([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
       ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
       ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
       ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.json"],
         tsconfigRootDir: import.meta.dirname,
       },
-      // other options...
     },
   },
-])
+]);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Optional Plugins:
 
-```js
-// eslint.config.js
+```ts
 import reactX from 'eslint-plugin-react-x'
 import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
+	@@ -51,19 +116,27 @@ export default tseslint.config([
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
-      // Other configs...
-      // Enable lint rules for React
       reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ['./tsconfig.json'],
         tsconfigRootDir: import.meta.dirname,
       },
-      // other options...
     },
   },
 ])
 ```
+
+---
+
+## 🗺️ Roadmap
+
+- Backend API integration
+- Emission visualization graphs
+- Tokenization logic with ERC-1155
+- QR generation & verification
+
+---
