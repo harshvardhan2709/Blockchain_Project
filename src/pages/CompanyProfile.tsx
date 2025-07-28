@@ -26,18 +26,7 @@ const CompanyProfile = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-black text-white flex flex-col p-6">
-        <h1 className="text-2xl font-bold mb-6">ClimCarbon</h1>
-        <nav className="flex-1">
-          <h2 className="text-sm font-semibold mb-2">DATA INPUT</h2>
-          <ul className="space-y-2 mb-6">
-            <li className="hover:text-green-400 cursor-pointer">General Info</li>
-          </ul>
-        </nav>
-        <footer className="text-sm mt-auto text-green-400">Powered by Climekare</footer>
-      </aside>
+    <div className="flex h-screen bg-white-100">
 
       {/* Main content */}
       <main className="flex-1 p-8 overflow-auto">

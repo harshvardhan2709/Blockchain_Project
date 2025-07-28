@@ -1,4 +1,4 @@
-# 🌿 Climatrixs – Carbon Tokenization Frontend
+# 🌿 ClimCarbon – Carbon Tokenization Frontend
 
 This project provides a React + TypeScript + Vite frontend setup for a carbon credit platform. It features company login, profile input, and emission tracking using a modular, scalable structure and TailwindCSS styling.
 

@@ -6,11 +6,12 @@ const LoginPage = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("✅ We logged in");
     navigate('/company-profile');
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="pt-[0px] flex h-[calc(100vh-0px)]"> {/* Adjusted top padding */}
       {/* Left side */}
       <div className="w-1/2 bg-green-900 text-white flex flex-col justify-center items-center p-10">
         <h1 className="text-4xl font-bold mb-4">ClimCarbon</h1>

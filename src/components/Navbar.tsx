@@ -1,6 +1,5 @@
 // src/components/Navbar.tsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,10 +7,10 @@ const Navbar: React.FC = () => {
   const toggleNavbar = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-10">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className="bg-white fixed w-full shadow-md z-10">
+      <div className="mx-8 py-5 flex justify-between items-center">
         <div className="text-xl font-bold text-green-600">
-          Climatrixs
+          ClimCarbon
         </div>
 
         <div className="md:hidden">
@@ -33,10 +32,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className={`md:flex md:items-center md:gap-6 ${isOpen ? 'block' : 'hidden'} md:block`}>
-          <Link to="/" className="block py-2 md:py-0 text-gray-700 hover:text-green-600">Home</Link>
-          <Link to="/profile" className="block py-2 md:py-0 text-gray-700 hover:text-green-600">Profile</Link>
-          <Link to="/projects" className="block py-2 md:py-0 text-gray-700 hover:text-green-600">Projects</Link>
-          <Link to="/login" className="block py-2 md:py-0 text-gray-700 hover:text-green-600">Login</Link>
+          <span className="text-gray-600 text-sm">Powered by Climekare</span>
         </div>
       </div>
     </nav>
