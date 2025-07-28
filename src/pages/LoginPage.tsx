@@ -8,6 +8,7 @@ const LoginPage = () => {
     e.preventDefault();
     console.log("✅ We logged in");
     navigate('/company-profile');
+    
   };
 
   return (

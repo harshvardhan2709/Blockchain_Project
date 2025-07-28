@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root'); // Important for accessibility
 
 const CompanyProfile = () => {
   const [company, setCompany] = useState({
@@ -15,20 +18,36 @@ const CompanyProfile = () => {
     listedYear: '',
   });
 
+  const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompany({ ...company, [e.target.name]: e.target.value });
   };
 
+  const validate = () => {
+    if (!company.name || !company.regNumber) {
+      return 'Company Name and Registration Number are required';
+    }
+    return null;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: submit logic
-    console.log(company);
+    const validationError = validate();
+
+    if (validationError) {
+      setError(validationError);
+      setIsModalOpen(true);
+      return;
+    }
+
+    // All validations passed — log the data object
+    console.log("✅ Submitted Company Profile:", company);
   };
 
   return (
-    <div className="flex h-screen bg-white-100">
-
-      {/* Main content */}
+    <div className="flex h-screen bg-gray-100">
       <main className="flex-1 p-8 overflow-auto">
         <header className="flex justify-between items-center mb-6">
           <div>
@@ -39,86 +58,17 @@ const CompanyProfile = () => {
         </header>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6 bg-white p-6 rounded shadow">
-          <input
-            name="name"
-            placeholder="Company Name"
-            value={company.name}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="regNumber"
-            placeholder="Company Registration Number"
-            value={company.regNumber}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="country"
-            placeholder="Country of Registration"
-            value={company.country}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="year"
-            placeholder="Year of Incorporation"
-            value={company.year}
-            onChange={handleChange}
-            className="p-2 border rounded"
-            type="number"
-          />
-          <input
-            name="employeeCount"
-            placeholder="Number of Employees"
-            value={company.employeeCount}
-            onChange={handleChange}
-            className="p-2 border rounded"
-            type="number"
-          />
-          <input
-            name="stockExchange"
-            placeholder="Stock Exchange (Optional)"
-            value={company.stockExchange}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="listedYear"
-            placeholder="Listed Year (Optional)"
-            value={company.listedYear}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="nicCode"
-            placeholder="NIC/SIC Code"
-            value={company.nicCode}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="fiscalYear"
-            placeholder="Fiscal Year"
-            value={company.fiscalYear}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="website"
-            placeholder="Website"
-            value={company.website}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-          <input
-            name="corpOffice"
-            placeholder="Corporate Office"
-            value={company.corpOffice}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-
+          {Object.entries(company).map(([key, value]) => (
+            <input
+              key={key}
+              name={key}
+              placeholder={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
+              value={value}
+              onChange={handleChange}
+              className="p-2 border rounded"
+              type={key.toLowerCase().includes('year') || key.toLowerCase().includes('count') ? 'number' : 'text'}
+            />
+          ))}
           <div className="col-span-2 text-right">
             <button
               type="submit"
@@ -128,6 +78,23 @@ const CompanyProfile = () => {
             </button>
           </div>
         </form>
+
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          contentLabel="Validation Error"
+          className="bg-white p-6 max-w-md mx-auto mt-40 rounded shadow"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-start"
+        >
+          <h2 className="text-xl font-bold text-red-600 mb-4">Validation Error</h2>
+          <p className="text-gray-700">{error}</p>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="mt-6 px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800"
+          >
+            Close
+          </button>
+        </Modal>
       </main>
     </div>
   );

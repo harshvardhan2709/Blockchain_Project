@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import LoginPage from './pages/LoginPage';
 import CompanyProfile from './pages/CompanyProfile';
 import Navbar from './components/Navbar';
-import Sidebar from './components/SideBar';
+import Sidebar from './components/Sidebar';
 import Profile from './pages/CompanyProfile';
 import Projects from './pages/Projects'; 
 
