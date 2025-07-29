@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Building2, Grid3X3, Upload, Calendar, Globe, MapPin, Users, TrendingUp, HelpCircle, X, AlertCircle } from 'lucide-react';
+import { Building2, MapPin, Calendar, X, AlertCircle } from 'lucide-react';
 
 interface CompanyData {
   companyName: string;
@@ -34,7 +34,6 @@ const CompanyProfileForm: React.FC = () => {
     corporateOffice: ''
   });
 
-  const [activeTab, setActiveTab] = useState<'profile' | 'dashboard'>('profile');
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
@@ -43,6 +42,15 @@ const CompanyProfileForm: React.FC = () => {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleYearChange = (field: keyof CompanyData, dateValue: string) => {
+    if (dateValue) {
+      const year = new Date(dateValue).getFullYear().toString();
+      handleInputChange(field, year);
+    } else {
+      handleInputChange(field, '');
+    }
   };
 
   const validateForm = (): ValidationErrors => {
@@ -134,43 +142,11 @@ const CompanyProfileForm: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header with tabs */}
-        <div className="flex gap-4 mb-8">
-          <button
-            onClick={() => setActiveTab('profile')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
-              activeTab === 'profile'
-                ? 'bg-green-600 text-white'
-                : 'bg-white text-gray-600 border border-gray-200'
-            }`}
-          >
-            <Building2 size={20} />
-            Company Profile
-          </button>
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
-              activeTab === 'dashboard'
-                ? 'bg-green-600 text-white'
-                : 'bg-white text-gray-600 border border-gray-200'
-            }`}
-          >
-            <Grid3X3 size={20} />
-            Admin Dashboard
-          </button>
-        </div>
-
         {/* Main content */}
         <div className="bg-white rounded-xl shadow-lg p-8">
-          {/* Header with logo upload */}
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-3">
-              <div className="text-green-600 font-bold text-2xl">Climekare</div>
-            </div>
-            <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center gap-2">
-              <Upload size={18} />
-              Upload New Logo
-            </button>
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="text-green-600 font-bold text-2xl">Climekare</div>
           </div>
 
           {/* Form Grid */}
@@ -222,18 +198,21 @@ const CompanyProfileForm: React.FC = () => {
               </div>
             </div>
 
-            {/* Year of Incorporation */}
+            {/* Year of Incorporation - Date Picker */}
             <div>
               <label className="block text-gray-700 font-medium mb-2">Year of Incorporation</label>
               <div className="relative">
                 <input
-                  type="text"
-                  value={formData.yearOfIncorporation}
-                  onChange={(e) => handleInputChange('yearOfIncorporation', e.target.value)}
+                  type="date"
+                  value={formData.yearOfIncorporation ? `${formData.yearOfIncorporation}-01-01` : ''}
+                  onChange={(e) => handleYearChange('yearOfIncorporation', e.target.value)}
                   className="w-full p-3 pl-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
                 />
                 <Calendar className="absolute left-3 top-3 text-green-600" size={20} />
               </div>
+              {formData.yearOfIncorporation && (
+                <div className="text-sm text-gray-600 mt-1">Selected Year: {formData.yearOfIncorporation}</div>
+              )}
             </div>
 
             {/* NIC/ISIC Code */}
@@ -265,20 +244,21 @@ const CompanyProfileForm: React.FC = () => {
               </div>
             </div>
 
-            {/* Listed Year */}
+            {/* Listed Year - Date Picker */}
             <div>
               <label className="block text-gray-700 font-medium mb-2">Listed Year ( Optional )</label>
               <div className="relative">
                 <input
-                  type="text"
-                  value={formData.listedYear}
-                  onChange={(e) => handleInputChange('listedYear', e.target.value)}
-                  placeholder="dd-mm-yyyy"
+                  type="date"
+                  value={formData.listedYear ? `${formData.listedYear}-01-01` : ''}
+                  onChange={(e) => handleYearChange('listedYear', e.target.value)}
                   className="w-full p-3 pl-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
                 />
                 <Calendar className="absolute left-3 top-3 text-green-600" size={20} />
-                <Calendar className="absolute right-3 top-3 text-gray-400" size={20} />
               </div>
+              {formData.listedYear && (
+                <div className="text-sm text-gray-600 mt-1">Selected Year: {formData.listedYear}</div>
+              )}
             </div>
 
             {/* Stock Exchange */}
@@ -347,20 +327,14 @@ const CompanyProfileForm: React.FC = () => {
             </div>
           </div>
 
-          {/* Footer with buttons */}
-          <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-            <div></div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={handleUpdateChanges}
-                className="bg-green-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
-              >
-                Update Changes
-              </button>
-              <button className="p-3 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition-colors">
-                <HelpCircle size={20} />
-              </button>
-            </div>
+          {/* Footer with button */}
+          <div className="flex justify-end mt-8 pt-6 border-t border-gray-200">
+            <button
+              onClick={handleUpdateChanges}
+              className="bg-green-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+            >
+              Save
+            </button>
           </div>
         </div>
 
