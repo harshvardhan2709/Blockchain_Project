@@ -86,6 +86,8 @@ Global styles can be updated in `src/index.css`.
 
 To enable strict type-aware linting:
 
+````ts
+// eslint.config.js
 ```ts
 // eslint.config.js
 export default tseslint.config([
@@ -105,10 +107,12 @@ export default tseslint.config([
     },
   },
 ]);
-```
+````
 
 Optional Plugins:
+Optional Plugins:
 
+````ts
 ```ts
 import reactX from 'eslint-plugin-react-x'
 import reactDom from 'eslint-plugin-react-dom'
@@ -123,12 +127,13 @@ import reactDom from 'eslint-plugin-react-dom'
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.json'],
+        project: ['./tsconfig.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
 ])
-```
+````
 
 ---
 
