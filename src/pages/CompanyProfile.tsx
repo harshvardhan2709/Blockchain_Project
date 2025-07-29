@@ -30,7 +30,7 @@ const CompanyProfileForm: React.FC = () => {
     listedYear: '',
     stockExchange: '',
     fiscalYear: 'JAN-DEC',
-    website: '',
+    website: '', 
     corporateOffice: ''
   });
 
