@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("✅ We logged in");
-    navigate('/company-profile');
-    
-  };
+const handleLogin = (e: React.FormEvent) => {
+  e.preventDefault();
+  console.log("✅ We logged in");
+  navigate('/dashboard'); // Changed from '/company-profile'
+};
+
 
   return (
     <div className="pt-[0px] flex h-[calc(100vh-0px)]"> {/* Adjusted top padding */}
