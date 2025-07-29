@@ -28,11 +28,11 @@ const Navbar: React.FC<NavbarProps> = ({ onSidebarToggle }) => {
               <Leaf className="w-5 h-5 text-white" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-green-600">ClimCarbon</h1>
+              <h1 className="text-xl font-bold text-green-600">Climekare</h1>
               <p className="text-xs text-gray-500 -mt-1">Carbon Credits Platform</p>
             </div>
             <div className="sm:hidden">
-              <h1 className="text-lg font-bold text-green-600">ClimCarbon</h1>
+              <h1 className="text-lg font-bold text-green-600">Climekare</h1>
             </div>
           </div>
         </div>

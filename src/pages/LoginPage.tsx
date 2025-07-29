@@ -15,7 +15,7 @@ const handleLogin = (e: React.FormEvent) => {
     <div className="pt-[0px] flex h-[calc(100vh-0px)]"> {/* Adjusted top padding */}
       {/* Left side */}
       <div className="w-1/2 bg-green-900 text-white flex flex-col justify-center items-center p-10">
-        <h1 className="text-4xl font-bold mb-4">ClimCarbon</h1>
+        <h1 className="text-4xl font-bold mb-4">Climekare</h1>
         <p className="text-lg mb-6 text-center">
           Track carbon. Build trust. Drive change.
         </p>
@@ -24,7 +24,7 @@ const handleLogin = (e: React.FormEvent) => {
 
       {/* Right side */}
       <div className="w-1/2 flex flex-col justify-center items-center bg-white p-10">
-        <h2 className="text-2xl font-semibold mb-6">Welcome to ClimCarbon</h2>
+        <h2 className="text-2xl font-semibold mb-6">Welcome to Climekare</h2>
         <form onSubmit={handleLogin} className="w-full max-w-md space-y-4">
           <div>
             <label className="block text-gray-700">Username*</label>

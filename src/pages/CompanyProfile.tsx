@@ -8,13 +8,13 @@ Modal.setAppElement('#root');
 
 const CompanyProfile = () => {
   const [company, setCompany] = useState({
-    name: 'ClimCarbon Corp',
+    name: 'Climekare Corp',
     regNumber: 'CC123456789',
     country: 'United States',
     year: '2020',
     employeeCount: '250',
     stockExchange: 'NASDAQ',
-    website: 'https://climcarbon.com',
+    website: 'https://Climekare.com',
     nicCode: 'NIC001',
     corpOffice: '123 Green Street, San Francisco, CA',
     fiscalYear: '2024',
