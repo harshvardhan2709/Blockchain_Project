@@ -2,12 +2,12 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import LoginPage from './pages/LoginPage';
-import CompanyProfile from './pages/CompanyProfile';
+import AddCompany from './pages/AddCompany';
 import Dashboard from './pages/Dashboard';
-import Projects from './pages/Projects';
 import Settings from './pages/Settings';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import Companies from './pages/Companies'
 
 function App() {
   const location = useLocation();
@@ -58,8 +58,8 @@ function App() {
           <div className="p-3 lg:p-4 max-w-7xl mx-auto">
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/profile" element={<CompanyProfile />} />
-              <Route path="/projects" element={<Projects />} />
+              <Route path="/add-company" element={<AddCompany />} />
+              <Route path="/companies" element={<Companies />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/" element={<Navigate replace to="/dashboard" />} />
               <Route path="*" element={<Navigate replace to="/dashboard" />} />

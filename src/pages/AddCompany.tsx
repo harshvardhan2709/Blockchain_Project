@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-const CompanyProfile = () => {
+const AddCompany = () => {
   const [company, setCompany] = useState({
     name: 'ClimCarbon Corp',
     regNumber: 'CC123456789',
@@ -79,8 +79,8 @@ const CompanyProfile = () => {
       {/* Header - Simplified without upload button */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Company Profile</h1>
-          <p className="text-gray-600">Manage your company information and settings</p>
+            <h1 className="text-2xl font-bold text-gray-900">Add Company</h1>
+            <p className="text-gray-600">Add or edit company information</p>
         </div>
       </div>
 
@@ -157,4 +157,4 @@ const CompanyProfile = () => {
   );
 };
 
-export default CompanyProfile;
+export default AddCompany;

@@ -1,6 +1,6 @@
 // src/components/Navbar.tsx - Move notifications and user menu to right corner
 import React, { useState } from 'react';
-import { Menu, Bell, Search, User, Leaf } from 'lucide-react';
+import { Menu, Bell, User, Leaf } from 'lucide-react';
 
 interface NavbarProps {
   onSidebarToggle: () => void;

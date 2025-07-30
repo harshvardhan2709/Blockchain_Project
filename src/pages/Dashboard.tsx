@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Leaf, DollarSign, Activity } from 'lucide-react';
+import { Leaf, Activity } from 'lucide-react';
 
 const stats = [
   {
@@ -12,28 +12,12 @@ const stats = [
     color: 'green'
   },
   {
-    title: 'Portfolio Value',
-    value: '$128,640',
-    change: '+8.2%',
-    changeType: 'positive' as const,
-    icon: DollarSign,
-    color: 'blue'
-  },
-  {
     title: 'Active Projects',
     value: '24',
     change: '+3',
     changeType: 'positive' as const,
     icon: Activity,
     color: 'purple'
-  },
-  {
-    title: 'Monthly Growth',
-    value: '15.8%',
-    change: '+2.1%',
-    changeType: 'positive' as const,
-    icon: TrendingUp,
-    color: 'emerald'
   }
 ];
 
@@ -101,17 +85,6 @@ const Dashboard: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
-          className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
-        >
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Market Trends</h3>
-          <div className="h-48 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl flex items-center justify-center">
-            <p className="text-gray-500">Chart visualization would go here</p>
-          </div>
-        </motion.div>
       </div>
     </div>
   );

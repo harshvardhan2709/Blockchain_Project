@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Home, 
   User, 
-  FolderOpen, 
   Settings, 
+  FolderOpen,
   LogOut
 } from 'lucide-react';
 
@@ -25,8 +25,8 @@ interface SidebarProps {
 
 const navigationItems: NavigationItem[] = [
   { id: 'dashboard', label: 'Dashboard', path: '/dashboard', icon: Home },
-  { id: 'profile', label: 'Company Profile', path: '/profile', icon: User },
-  { id: 'projects', label: 'Projects', path: '/projects', icon: FolderOpen },
+  { id: 'add-company', label: 'Add Company', path: '/add-company', icon: User },
+  { id: 'companies', label: 'Companies', path: '/companies', icon: FolderOpen },
   { id: 'settings', label: 'Settings', path: '/settings', icon: Settings },
 ];
 
